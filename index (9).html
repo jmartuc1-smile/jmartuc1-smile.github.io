@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joe Martucci</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#ECEEF0;
+    --ink:#14181F;
+    --ink-soft:#565A62;
+    --navy:#9B2C2C;
+    --brass:#1F6F5C;
+    --sage:#6E7280;
+    --line:#D3D6D9;
+    --white:#FFFFFF;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:'Spectral', serif;
+    font-weight:500;
+    margin:0;
+    color:var(--ink);
+  }
+
+  a{ color:var(--navy); }
+
+  .wrap{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- TOP BAR + TABS ---------- */
+
+  .topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:18px;
+    padding:32px 0 22px;
+    border-bottom:1px solid var(--line);
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:13px;
+  }
+
+  .avatar{
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    object-fit:cover;
+    object-position:center 18%;
+    border:1px solid var(--line);
+    flex-shrink:0;
+  }
+
+  .brand-name{ font-size:19px; }
+
+  .brand-sub{
+    font-size:12.5px;
+    color:var(--sage);
+    margin-top:2px;
+  }
+
+  .tabs{
+    display:flex;
+    gap:26px;
+    flex-wrap:wrap;
+  }
+
+  .tab-btn{
+    background:none;
+    border:none;
+    cursor:pointer;
+    font-family:'Work Sans', sans-serif;
+    font-size:15px;
+    color:var(--ink-soft);
+    padding:8px 0;
+    position:relative;
+  }
+
+  .tab-btn:hover{ color:var(--navy); }
+  .tab-btn.active{ color:var(--ink); font-weight:600; }
+
+  .tab-btn.active::after{
+    content:'';
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:2px;
+    background:var(--brass);
+  }
+
+  main{
+    padding:38px 0 10px;
+    min-height:56vh;
+  }
+
+  .tab-panel{ display:none; }
+  .tab-panel.active{ display:block; animation:fadein .3s ease; }
+
+  @keyframes fadein{
+    from{ opacity:0; transform:translateY(6px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  /* ---------- OVERVIEW ---------- */
+
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:56px;
+    align-items:start;
+  }
+
+  .hero-photo img{
+    width:100%;
+    aspect-ratio:4/5;
+    object-fit:cover;
+    object-position:center 30%;
+    border-radius:3px;
+    border:1px solid var(--line);
+    display:block;
+  }
+
+  .hero-bio{
+    max-width:62ch;
+    font-size:17px;
+    color:var(--ink-soft);
+  }
+
+  .hero-bio p{ margin:0 0 14px; }
+  .hero-bio p:last-child{ margin-bottom:0; }
+
+  .vitals{
+    border:1px solid var(--line);
+    background:var(--white);
+    padding:20px 22px;
+    margin-top:20px;
+  }
+
+  .vitals dl{
+    margin:0;
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:9px 14px;
+    font-size:14.5px;
+  }
+
+  .vitals dt{ color:var(--sage); white-space:nowrap; }
+  .vitals dd{ margin:0; color:var(--ink); }
+
+  .vitals-divider{
+    border:none;
+    border-top:1px solid var(--line);
+    margin:16px 0;
+  }
+
+  .stat-row{ display:flex; gap:22px; flex-wrap:wrap; }
+  .stat{ min-width:70px; }
+
+  .stat-num{
+    font-family:'Spectral', serif;
+    font-size:22px;
+    color:var(--navy);
+    display:block;
+    line-height:1.1;
+  }
+
+  .stat-label{
+    font-size:12.5px;
+    color:var(--sage);
+    display:block;
+    margin-top:2px;
+  }
+
+  /* ---------- SECTION HEADS ---------- */
+
+  .section-head{
+    margin-bottom:28px;
+    border:1px solid var(--line);
+    background:var(--white);
+    padding:18px 22px;
+    border-left:3px solid var(--navy);
+  }
+  .section-head h2{ font-size:26px; }
+  .section-note{
+    color:var(--sage);
+    font-size:14.5px;
+    margin-top:6px;
+    max-width:48ch;
+  }
+
+  /* ---------- EXPERIENCE TIMELINE ---------- */
+
+  .timeline-entry{
+    display:grid;
+    grid-template-columns:140px 1fr;
+    gap:24px;
+    padding:20px 0;
+  }
+
+  .timeline-entry + .timeline-entry{ border-top:1px solid var(--line); }
+
+  .entry-date{ font-size:13.5px; color:var(--brass); padding-top:3px; }
+  .entry-org{ font-size:14px; color:var(--ink-soft); margin:2px 0 8px; }
+
+  .entry-title{
+    font-family:'Spectral', serif;
+    font-size:19px;
+    font-weight:500;
+    margin:0 0 4px;
+  }
+
+  .entry-body{ color:var(--ink-soft); font-size:15.5px; max-width:60ch; }
+
+  /* ---------- LEADERSHIP ---------- */
+
+  .activity-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:36px;
+  }
+
+  .activity-role{ font-size:14px; color:var(--ink-soft); margin:2px 0 10px; }
+  .activity h3{ font-size:19px; }
+  .activity p{ color:var(--ink-soft); font-size:15.5px; margin:0 0 12px; }
+
+  .badge-list{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+
+  .badge{
+    font-size:13px;
+    color:var(--navy);
+    border:1px solid var(--line);
+    background:var(--white);
+    padding:4px 10px;
+    border-radius:2px;
+  }
+
+  /* ---------- FAMILY ---------- */
+
+  .family-grid{
+    display:grid;
+    grid-template-columns:1fr 1.15fr;
+    gap:40px;
+    align-items:start;
+  }
+
+  .family-photo img{
+    width:100%;
+    aspect-ratio:4/5;
+    object-fit:cover;
+    object-position:center 22%;
+    border-radius:3px;
+    border:1px solid var(--line);
+    display:block;
+  }
+
+  .family-body{ max-width:60ch; color:var(--ink-soft); font-size:17px; }
+  .family-body p{ margin:0 0 14px; }
+  .family-body p:last-child{ margin-bottom:0; }
+
+  /* ---------- FOOTER ---------- */
+
+  footer{
+    padding:30px 0 56px;
+    border-top:1px solid var(--line);
+    margin-top:18px;
+  }
+
+  .footer-lead{
+    font-size:17px;
+    color:var(--ink-soft);
+    max-width:56ch;
+    margin:0 0 26px;
+  }
+
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:36px;
+  }
+
+  .footer-col h3{
+    font-size:13.5px;
+    color:var(--sage);
+    font-weight:600;
+    font-family:'Work Sans', sans-serif;
+    margin-bottom:10px;
+  }
+
+  .footer-col p{ color:var(--ink-soft); font-size:15px; margin:0; }
+
+  .contact-line{
+    margin-top:30px;
+    font-size:14px;
+    color:var(--ink-soft);
+  }
+
+  .contact-line a{
+    color:var(--navy);
+    text-decoration:none;
+    border-bottom:1px solid var(--line);
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+
+  @media (max-width:720px){
+    .wrap{ padding:0 20px; }
+    .topbar{ padding:24px 0 18px; }
+    .tabs{ gap:18px; width:100%; }
+    .hero-grid{ grid-template-columns:1fr; gap:26px; }
+    .hero-photo{ max-width:220px; }
+    .family-grid{ grid-template-columns:1fr; gap:24px; }
+    .family-photo{ max-width:280px; }
+    .timeline-entry{ grid-template-columns:1fr; gap:6px; }
+    .activity-grid{ grid-template-columns:1fr; }
+    .footer-grid{ grid-template-columns:1fr; gap:24px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .tab-panel.active{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand">
+      <img class="avatar" src="headshot.jpeg" alt="Joe Martucci">
+      <div>
+        <div class="brand-name">Joe Martucci</div>
+        <div class="brand-sub">Swarthmore College · Class of 2029</div>
+      </div>
+    </div>
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="overview">Overview</button>
+      <button class="tab-btn" data-tab="experience">Experience</button>
+      <button class="tab-btn" data-tab="leadership">Leadership</button>
+      <button class="tab-btn" data-tab="family">Family</button>
+    </nav>
+  </div>
+
+  <main>
+
+    <!-- OVERVIEW -->
+    <section class="tab-panel active" id="tab-overview">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-bio">
+            <p class="">I'm a sophomore at Swarthmore studying political science, philosophy, and economics: I like understanding why people decide what they decide before I try to predict and model what they'll do next. That question has taken me into a cancer research lab, a hedge fund, a REIT trading desk, and, six days a week, onto a lacrosse field.</p>
+            <p class="">Markets are where that curiosity has landed hardest. I spent last summer inside Reade Street building the reporting infrastructure the fund runs on, then a week with REITs building models off Green Street data. Both left me wanting more of that: people working together, pushing each other, arguing out a move before making it. Weathering criticism and still finding a way to collaborate is what I like most about it.</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="hero-photo">
+            <img src="candid.jpeg" alt="Joe Martucci on Swarthmore's campus">
+          </div>
+          <div class="vitals">
+            <dl>
+              <dt>School</dt><dd>Swarthmore College</dd>
+              <dt>Studying</dt><dd>Political Science, Philosophy &amp; Economics</dd>
+              <dt>Class</dt><dd>2029</dd>
+              <dt>Citizenship</dt><dd>United States &amp; Malta</dd>
+            </dl>
+            <hr class="vitals-divider">
+            <div class="stat-row">
+              <div class="stat"><span class="stat-num">4.0</span><span class="stat-label">College GPA</span></div>
+              <div class="stat"><span class="stat-num">4.63</span><span class="stat-label">HS weighted GPA</span></div>
+              <div class="stat"><span class="stat-num">35/36</span><span class="stat-label">ACT</span></div>
+              <div class="stat"><span class="stat-num">9th</span><span class="stat-label">class rank</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="tab-panel" id="tab-experience">
+      <div class="section-head">
+        <h2 class="">Experience</h2>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-entry">
+          <div class="entry-date">Jun – Oct 2023</div>
+          <div>
+            <div class="entry-title">Independent Research Project</div>
+            <div class="entry-org">Albert Einstein College of Medicine, Dept. of Biochemistry, Bronx, NY</div>
+            <p class="entry-body">Before I'd taken a single finance class, I spent more than 250 hours in a lab engineering a protein octamer designed to improve CD8+ T-cell detection of head and neck cancers, and submitted the work for competitive review. It was my first real lesson in how slow and exacting it is to test an idea against evidence rather than just argue for it.</p>
+          </div>
+        </div>
+
+        <div class="timeline-entry">
+          <div class="entry-date">May – Aug 2026</div>
+          <div>
+            <div class="entry-title">Summer Analyst</div>
+            <div class="entry-org">Reade Street, Hedge Fund, New York, NY</div>
+            <p class="entry-body">Automated the reporting workflows the fund runs its books on: Python and Excel tools for bill processing, commission reporting, and daily tax lot tracking, built to hold up to GAAP-consistent AUM reporting. Weekly analyst meetings on modeling, position sourcing, research, and risk management gave me a real look at how analysts work.&nbsp;</p>
+          </div>
+        </div>
+
+        <div class="timeline-entry">
+          <div class="entry-date">Aug 2026</div>
+          <div>
+            <div class="entry-title">Shadow</div>
+            <div class="entry-org">Easterly Investment Partners, REIT Global Fund, Philadelphia, PA</div>
+            <p class="entry-body">Built an interactive JLL rent-clock tool and a multi-factor regression model across six industrial REITs, with Green Street data,. Shadowed a senior portfolio manager's day-to-day calls on the desk. Further piqued my interest in the real estate sector</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEADERSHIP -->
+    <section class="tab-panel" id="tab-leadership">
+      <div class="section-head">
+        <h2 class="">Leadership &amp; activities</h2>
+      </div>
+
+      <div class="activity-grid">
+        <div class="activity">
+          <h3 class="">Varsity Men's Lacrosse</h3>
+          <p class="activity-role">NCAA D-III Athlete, Swarthmore College, Aug 2025 – Present</p>
+          <p class="">Practices, weight training, and travel add up to 30+ hours a week. It's the most consistent lesson I get in discipline.</p>
+          <div class="badge-list">
+            <span class="badge">HS Captain, 2024 &amp; 2025</span>
+            <span class="badge">Academic All-American, 2025</span>
+          </div>
+        </div>
+
+        <div class="activity">
+          <h3 class="">Finance Development Society</h3>
+          <p class="activity-role">Member, Swarthmore College, Aug 2025 – Present</p>
+          <p class="">Technical finance workshops, alumni networking, and market and deal analysis discussions.</p>
+          <h3 style="margin-top:22px;" class="">Class President</h3>
+          <p class="activity-role">Pelham Memorial High School Student Government, 2023 – 2025</p>
+          <p class="">Led fundraising initiatives that raised $5,500 and $7,500 for a local nonprofit, and oversaw planning for prom and school-wide athletic events with the administration.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAMILY -->
+    <section class="tab-panel" id="tab-family">
+      <div class="section-head">
+        <h2 class="">Where it comes from</h2>
+      </div>
+
+      <div class="family-grid">
+        <div class="family-photo">
+          <img src="family.jpeg" alt="Joe Martucci with his family at sunset">
+        </div>
+        <div>
+          <div class="family-body">
+            <p class="">My dad played college football and has spent his career since as a 4th grade teacher. I've watched him treat every kid in his classroom like they're his own, and that's more or less how I've come to think about finance: Anyone can go through the motions on data analysis, but it takes genuine care for the companies and the data itself to add real value.&nbsp;</p>
+            <p class="">My mom was an executive editor at People, which meant she spent my childhood on flights, running teams and making decisions I did not really&nbsp; understand at the time. What I did understand, watching her, was how deft she was at managing people under real time pressure, a skill that maps onto markets more directly than I expected.</p>
+            <p class="">I also have a twin brother, and we've been working as a team since before we could really call it that: same room, same teams, same tests, learning early how to split up work and actually rely on someone else to hold up their end of it.</p>
+            <p class="">I also have two younger sisters, ten and thirteen years behind me. With that kind of gap, I'm either a cautionary tale or an example, there's no in-between, and I've come to see that pressure as a privilege.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3 class="">Interests</h3>
+        <p class="">Piano, poker, chess, game theory, fitness, The Great Gatsby&nbsp;</p>
+      </div>
+      <div class="footer-col">
+        <h3 class="">Also Worth Knowing</h3>
+        <p class="">Dual citizen of the United States and Malta, able to live and work across all 27 EU nations.&nbsp;</p>
+      </div>
+    </div>
+
+    <div class="contact-line">
+      Pelham, NY &nbsp;·&nbsp; <a href="mailto:jmartuc1@swarthmore.edu">jmartuc1@swarthmore.edu</a> &nbsp;·&nbsp; 914.414.4106
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  const tabs = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.tab-panel');
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(b => b.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    });
+  });
+</script>
+
+</body>
+</html>
